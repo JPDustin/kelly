@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whitmore Estate - Image Downloader</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #8b5a3c, #b68f71);
+        border-radius: 10px;
+        color: white;
+      }
+
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .image-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+
+      .image-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .image-preview {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+      }
+
+      .image-info h3 {
+        margin: 0 0 0.5rem 0;
+        color: #8b5a3c;
+        font-size: 1.1rem;
+      }
+
+      .image-info p {
+        margin: 0 0 1rem 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .download-btn {
+        display: inline-block;
+        background: #8b5a3c;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: background 0.2s ease;
+      }
+
+      .download-btn:hover {
+        background: #6d4530;
+      }
+
+      .download-all {
+        text-align: center;
+        margin: 2rem 0;
+      }
+
+      .download-all-btn {
+        background: linear-gradient(135deg, #8b5a3c, #b68f71);
+        color: white;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+        display: inline-block;
+      }
+
+      .download-all-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .instructions {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        border-left: 4px solid #8b5a3c;
+      }
+
+      .url-list {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 5px;
+        margin: 1rem 0;
+        font-family: monospace;
+        font-size: 0.8rem;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🏠 The Whitmore Estate</h1>
+      <h2>High-Quality Image Collection</h2>
+      <p>Professional photos curated for your historic real estate website</p>
+    </div>
+
+    <div class="instructions">
+      <h3>📥 How to Download Images</h3>
+      <ol>
+        <li>
+          <strong>Individual Downloads:</strong> Click the "Download" button
+          under each image
+        </li>
+        <li>
+          <strong>Bulk Download:</strong> Use the "Download All Images" button
+          below
+        </li>
+        <li>
+          <strong>Manual Download:</strong> Right-click any image and "Save
+          Image As..."
+        </li>
+        <li>
+          <strong>Save to:</strong> Place all images in your
+          <code>/images</code> folder
+        </li>
+      </ol>
+
+      <h4>🎯 Required File Names:</h4>
+      <div class="url-list">
+        featured-main.jpg - Main estate exterior<br />
+        featured-2.jpg - Grand foyer interior<br />
+        featured-3.jpg - Historic gardens<br />
+        featured-4.jpg - Restored kitchen<br />
+        featured-5.jpg - Library with hidden passage<br />
+        featured-6.jpg - Master suite<br />
+        grounds-1.jpg - Sugar maple grove<br />
+        grounds-2.jpg - Heritage oak tree<br />
+        grounds-3.jpg - Private pond<br />
+        interior-1.jpg - Formal dining room
+      </div>
+    </div>
+
+    <div class="download-all">
+      <button class="download-all-btn" onclick="downloadAllImages()">
+        📦 Download All Images
+      </button>
+      <p style="margin-top: 1rem; color: #666">
+        Downloads all 10 images as a ZIP file
+      </p>
+    </div>
+
+    <div class="image-grid" id="imageGrid">
+      <!-- Images will be populated by JavaScript -->
+    </div>
+
+    <script>
+      const images = [
+        {
+          filename: "featured-main.jpg",
+          title: "The Whitmore Estate - Main Facade",
+          description:
+            "Magnificent Greek Revival mansion - perfect for the hero section",
+          url: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "Tierra Mallorca",
+        },
+        {
+          filename: "featured-2.jpg",
+          title: "Grand Foyer Interior",
+          description:
+            "Elegant entrance with crystal chandelier and period details",
+          url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2058&q=80",
+          photographer: "Spacejoy",
+        },
+        {
+          filename: "featured-4.jpg",
+          title: "Restored 1920s Kitchen",
+          description: "Period-appropriate fixtures with modern conveniences",
+          url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "Point3D Commercial Imaging",
+        },
+        {
+          filename: "featured-5.jpg",
+          title: "Library with Hidden Passage",
+          description:
+            "Floor-to-ceiling mahogany shelves hiding Underground Railroad secrets",
+          url: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2128&q=80",
+          photographer: "Valdemaras D.",
+        },
+        {
+          filename: "featured-6.jpg",
+          title: "Master Suite Retreat",
+          description: "Contemporary addition with historical sensitivity",
+          url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "Francesca Tosolini",
+        },
+        {
+          filename: "featured-3.jpg",
+          title: "Historic Gardens",
+          description:
+            "Formal gardens with stone pathways and mature plantings",
+          url: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "Steffen Voelkel",
+        },
+        {
+          filename: "grounds-1.jpg",
+          title: "Samuel's Sugar Maple Grove",
+          description: "Spectacular autumn colors from trees planted in 1847",
+          url: "https://images.unsplash.com/photo-1507371341162-763b5e419618?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "Jeremy Bishop",
+        },
+        {
+          filename: "grounds-2.jpg",
+          title: "Heritage Oak Tree",
+          description: "Ancient witness tree predating the house (pre-1800)",
+          url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
+          photographer: "Casey Horner",
+        },
+        {
+          filename: "grounds-3.jpg",
+          title: "Samuel's Private Pond",
+          description: "Tranquil retreat for reflection and summer cooling",
+          url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+          photographer: "John Fowler",
+        },
+        {
+          filename: "interior-1.jpg",
+          title: "Formal Dining Room",
+          description: "Elegant dining space with original wide-plank floors",
+          url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2058&q=80",
+          photographer: "Spacejoy",
+        },
+      ];
+
+      function populateImageGrid() {
+        const grid = document.getElementById("imageGrid");
+
+        images.forEach((image) => {
+          const card = document.createElement("div");
+          card.className = "image-card";
+
+          card.innerHTML = `
+                    <img src="${image.url}" alt="${image.title}" class="image-preview" loading="lazy">
+                    <div class="image-info">
+                        <h3>${image.title}</h3>
+                        <p><strong>File:</strong> ${image.filename}</p>
+                        <p>${image.description}</p>
+                        <p><em>Photo by ${image.photographer} on Unsplash</em></p>
+                        <a href="${image.url}&dl=${image.filename}" class="download-btn" download="${image.filename}">
+                            📥 Download ${image.filename}
+                        </a>
+                    </div>
+                `;
+
+          grid.appendChild(card);
+        });
+      }
+
+      function downloadAllImages() {
+        // Create a simple text file with all URLs for manual download
+        const urlList = images
+          .map((img) => `${img.filename}: ${img.url}`)
+          .join("\n\n");
+        const blob = new Blob(
+          [
+            `The Whitmore Estate - Image URLs\n\nDownload Instructions:\n1. Copy each URL below\n2. Paste into browser\n3. Save with the specified filename\n4. Place in your /images folder\n\n${urlList}`,
+          ],
+          { type: "text/plain" }
+        );
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "whitmore-estate-image-urls.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Also trigger individual downloads with a delay
+        let delay = 0;
+        images.forEach((image) => {
+          setTimeout(() => {
+            const a = document.createElement("a");
+            a.href = image.url + "&dl=" + image.filename;
+            a.download = image.filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, delay);
+          delay += 1000; // 1 second delay between downloads
+        });
+
+        alert(
+          "Starting download of all images! Check your downloads folder.\n\nNote: Some browsers may block multiple downloads. If so, use the individual download buttons or the URL list text file."
+        );
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", populateImageGrid);
+    </script>
+  </body>
+</html>
