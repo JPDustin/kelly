@@ -39,14 +39,14 @@ const galleryData = {
         "Reclaimed chestnut beams and period windows make this addition feel timelessly integrated.",
     },
     {
-      src: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       alt: "Historic Gardens",
       caption: "Twelve acres of living New England poetry",
       story:
         "Stone walls built by Samuel Whitmore's own hands still define the property boundaries.",
     },
     {
-      src: "https://images.unsplash.com/photo-1507371341162-763b5e419618?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      src: "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       alt: "Sugar Maple Grove",
       caption: "The maple grove planted by Samuel Whitmore himself",
       story:
